@@ -376,41 +376,41 @@ in LilyPond-include-path."
   (interactive)
   (LilyPond-command (LilyPond-command-menu "MidiAll") 'LilyPond-get-master-file))
 
-(defun count-matches-as-number (re)
+(defun LilyPond-count-matches-as-number (re)
   "Count-matches in emacs 22 backwards-incompatibly returns a number"
   (let ((result (count-matches re)))
     (if (stringp result)
 	(string-to-number result)
       result)))
     
-(defun count-rexp (start end rexp)
+(defun LilyPond-count-rexp (start end rexp)
   "Print number of found regular expressions in the region."
   (interactive "r")
   (save-excursion
     (save-restriction
       (narrow-to-region start end)
       (goto-char (point-min))
-      (count-matches-as-number rexp))))
+      (LilyPond-count-matches-as-number rexp))))
 
-(defun count-midi-words ()
+(defun LilyPond-count-midi-words ()
   "Check number of midi-scores before the curser."
   (if (eq LilyPond-command-current 'LilyPond-command-region)
-      (count-rexp (mark t) (point) "\\\\midi")
-    (count-rexp (point-min) (point-max) "\\\\midi")))
+      (LilyPond-count-rexp (mark t) (point) "\\\\midi")
+    (LilyPond-count-rexp (point-min) (point-max) "\\\\midi")))
  
-(defun count-midi-words-backwards ()
+(defun LilyPond-count-midi-words-backwards ()
   "Check number of midi-scores before the curser."
   (if (eq LilyPond-command-current 'LilyPond-command-region)
-      (count-rexp (mark t) (point) "\\\\midi")
-    (count-rexp (point-min) (point) "\\\\midi")))
+      (LilyPond-count-rexp (mark t) (point) "\\\\midi")
+    (LilyPond-count-rexp (point-min) (point) "\\\\midi")))
  
 (defun LilyPond-string-current-midi ()
   "Check the midi file of the following midi-score in the current document."
   (let ((fnameprefix (if (eq LilyPond-command-current 'LilyPond-command-master)
 			 (substring (LilyPond-get-master-file) 0 -3); suppose ".ly"
 		       LilyPond-region-file-prefix))
-	(allcount (count-midi-words))
-	(count (count-midi-words-backwards)))
+	(allcount (LilyPond-count-midi-words))
+	(count (LilyPond-count-midi-words-backwards)))
     (concat  fnameprefix
 	     (if (and (> allcount 1) (> count 0)) ; not first score
 		 (if (eq count allcount)          ; last score
@@ -423,7 +423,7 @@ in LilyPond-include-path."
   (let ((fnameprefix (if (eq LilyPond-command-current 'LilyPond-command-master)
 			 (substring (LilyPond-get-master-file) 0 -3); suppose ".ly"
 		       LilyPond-region-file-prefix))
-	(allcount (count-midi-words)))
+	(allcount (LilyPond-count-midi-words)))
     (concat (if (> allcount 0)  ; at least one midi-score
 		(concat fnameprefix ".midi "))
 	    (if (> allcount 1)  ; more than one midi-score
