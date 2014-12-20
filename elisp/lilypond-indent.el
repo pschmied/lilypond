@@ -1,18 +1,20 @@
 ;;; lilypond-indent.el --- Auto-indentation for lilypond code
-;;;
-;;; Heikki Junes <hjunes@cc.hut.fi>
-;;; * ond-char paren matching is handled by context dependent syntax tables
-;;; * match two-char slurs '\( ... \)' and '\[ ... \]' separately.
-;;; * adopt Emacs' f90-comment-region
+;; URL: http://lilypond.org
+;; Version: 2.5.21
 
-;;; Chris Jackson <chris@fluffhouse.org.uk>
-;;; some code is taken from ESS (Emacs Speaks Statistics) S-mode by A.J.Rossini <rossini@biostat.washington.edu>
+;; Heikki Junes <hjunes@cc.hut.fi>
+;; * ond-char paren matching is handled by context dependent syntax tables
+;; * match two-char slurs '\( ... \)' and '\[ ... \]' separately.
+;; * adopt Emacs' f90-comment-region
 
-;;; Variables for customising indentation style
+;; Chris Jackson <chris@fluffhouse.org.uk>
+;; some code is taken from ESS (Emacs Speaks Statistics) S-mode by A.J.Rossini <rossini@biostat.washington.edu>
 
-;;; TODO:
-;;;    * currently, in bracket matching one may need a non-bracket
-;;;      chararacter between the bracket characters, like ( ( ) )
+;; Variables for customising indentation style
+
+;; TODO:
+;;    * currently, in bracket matching one may need a non-bracket
+;;      chararacter between the bracket characters, like ( ( ) )
 
 (defcustom LilyPond-indent-level 2
   "*Indentation of lilypond statements with respect to containing block."

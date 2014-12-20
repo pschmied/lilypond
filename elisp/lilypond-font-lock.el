@@ -1,4 +1,6 @@
 ;;; lilypond-font-lock.el --- syntax coloring for LilyPond mode
+;; URL: http://lilypond.org
+;; Version: 2.9.29
 
 ;; Author: 2001-2006: Heikki Junes
 ;;  * Emacs-mode: new keywords, reserved words, identifiers, notenames, 

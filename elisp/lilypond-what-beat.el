@@ -1,43 +1,47 @@
-; Features:
-;
-; -> Counts number of notes between last | and point. Adds durations of
-; each note up, and returns result.
-;
-; -> Works well on notes and chords.
-;
-; -> Ignores most keywords, like \override
-;
-; -> Is aware of certain keywords which often contain parameters that
-; look like notes, but should not be counted.
-;  | a \key b \minor c    % b is not counted, but a and c are.
-;
-; -> Ignores Scheme expressions, which start with #
-;
-; -> Doesn't ignore the \times keyword. Intelligently handles triplets.
-; 
-;
-; Caveats:
-;
-; -> Doesn't work on regions that aren't preceded by a |. This is because such
-; notes are only delimited by a {, and what-beat can't distinguish a { that
-; opens a set of notes from an internal { (say from a triplet)
-;
-; -> Doesn't work with << >>  expressions or nested {} expressions (unless
-; {} is part of a keyword like \times)
-;
-; -> Keywords abutted against a note are not visible to what-beat, and 
-; can therefore surreptitiosly sneak fake notes into what-beat.
-; | c\glissando f       <- BAD:  the f gets counted, but shouldn't
-; | c \glissando f      <- GOOD: the f gets ignored
-;
-; -> Does not look outside notes context. Derivation rules don't work:
-; str = \notes { a8 b c d }
-; \score { \notes { | e4 %{ gets counted }% \str %{gets ignored}%
-;
-; -> Does not handle repeats.
-;
-; -> Ignores \bar commands (and does not get confused by a | inside a \bar)
-;
+;;; lilypond-what-beat.el --- Emacs support for LilyPond beat location identification
+;; URL: http://lilypond.org
+;; Version: 2.5.21
+
+;; Features:
+
+;; -> Counts number of notes between last | and point. Adds durations of
+;; each note up, and returns result.
+
+;; -> Works well on notes and chords.
+
+;; -> Ignores most keywords, like \override
+
+;; -> Is aware of certain keywords which often contain parameters that
+;; look like notes, but should not be counted.
+;;  | a \key b \minor c    % b is not counted, but a and c are.
+
+;; -> Ignores Scheme expressions, which start with #
+
+;; -> Doesn't ignore the \times keyword. Intelligently handles triplets.
+
+
+;; Caveats:
+
+;; -> Doesn't work on regions that aren't preceded by a |. This is because such
+;; notes are only delimited by a {, and what-beat can't distinguish a { that
+;; opens a set of notes from an internal { (say from a triplet)
+
+;; -> Doesn't work with << >>  expressions or nested {} expressions (unless
+;; {} is part of a keyword like \times)
+
+;; -> Keywords abutted against a note are not visible to what-beat, and 
+;; can therefore surreptitiosly sneak fake notes into what-beat.
+;; | c\glissando f       <- BAD:  the f gets counted, but shouldn't
+;; | c \glissando f      <- GOOD: the f gets ignored
+
+;; -> Does not look outside notes context. Derivation rules don't work:
+;; str = \notes { a8 b c d }
+;; \score { \notes { | e4 %{ gets counted }% \str %{gets ignored}%
+
+;; -> Does not handle repeats.
+
+;; -> Ignores \bar commands (and does not get confused by a | inside a \bar)
+
 
 ; Recognizes pitch & octave
 (setq pitch-regex "\\([a-z]+[,']*\\|<[^>]*>\\)\\(=[,']*\\)?")

@@ -1,24 +1,26 @@
-;;;; lilypond-song.el --- Emacs support for LilyPond singing
-;;;;
-;;;; This file is part of LilyPond, the GNU music typesetter.
-;;;;
-;;;; Copyright (C) 2006 Brailcom, o.p.s.
-;;;; Author: Milan Zamazal <pdm@brailcom.org>
-;;;;
-;;;; LilyPond is free software: you can redistribute it and/or modify
-;;;; it under the terms of the GNU General Public License as published by
-;;;; the Free Software Foundation, either version 3 of the License, or
-;;;; (at your option) any later version.
-;;;;
-;;;; LilyPond is distributed in the hope that it will be useful,
-;;;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;;;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;;;; GNU General Public License for more details.
-;;;;
-;;;; You should have received a copy of the GNU General Public License
-;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
+;;; lilypond-song.el --- Emacs support for LilyPond singing
+;; URL: http://lilypond.org
+;; Version: 2.5.21
 
-;;; Commentary:
+;; This file is part of LilyPond, the GNU music typesetter.
+
+;; Copyright (C) 2006 Brailcom, o.p.s.
+;; Author: Milan Zamazal <pdm@brailcom.org>
+
+;; LilyPond is free software: you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; LilyPond is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
+
+;; Commentary:
 
 ;; This file adds Emacs support for singing lyrics of LilyPond files.
 ;; It extends lilypond-mode with the following commands (see their
@@ -31,7 +33,7 @@
 ;; Note these commands are not available from the standard LilyPond mode
 ;; command menus.
 
-;;; Code:
+;; Code:
 
 
 (require 'cl)

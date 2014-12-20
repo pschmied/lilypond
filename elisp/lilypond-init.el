@@ -1,6 +1,13 @@
 ;;; lilypond-init.el --- Startup code for LilyPond mode
+;; URL: http://lilypond.org
+;; Version: 2.5.21
 ;;
-;; Instructions, extracted from Documentation/topdocs/INSTALL.texi: 
+;; NOTE: If you are running emacs 24 or better, a more modern way to
+;; install this is via the Melpa package repository:
+;; http://melpa.org/
+;;
+;; For older emacs installations, follow these instructions, extracted
+;; from Documentation/topdocs/INSTALL.texi:
 
 ;; Emacs mode for entering music and running LilyPond is contained in
 ;; the source archive as `lilypond-mode.el', `lilypond-indent.el',
