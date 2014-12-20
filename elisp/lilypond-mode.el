@@ -1,36 +1,41 @@
-;;;; lilypond-mode.el -- Major mode for editing GNU LilyPond music scores
-;;;; This file is part of LilyPond, the GNU music typesetter.
-;;;;  
-;;;; Copyright (C) 1999--2014 Jan Nieuwenhuizen <janneke@gnu.org>
-;;;; Changed 2001--2003 Heikki Junes <heikki.junes@hut.fi>
-;;;;    * Add PS-compilation, PS-viewing and MIDI-play (29th Aug 2001)
-;;;;    * Keyboard shortcuts (12th Sep 2001)
-;;;;    * Inserting tags, inspired on sgml-mode (11th Oct 2001)
-;;;;    * Autocompletion & Info (23rd Nov 2002)
-;;;;
-;;;; LilyPond is free software: you can redistribute it and/or modify
-;;;; it under the terms of the GNU General Public License as published by
-;;;; the Free Software Foundation, either version 3 of the License, or
-;;;; (at your option) any later version.
-;;;;
-;;;; LilyPond is distributed in the hope that it will be useful,
-;;;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;;;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;;;; GNU General Public License for more details.
-;;;;
-;;;; You should have received a copy of the GNU General Public License
-;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
+;;; lilypond-mode.el --- Major mode for editing GNU LilyPond music scores
+;; URL: http://lilypond.org
+;; Version: 2.5.21
+
+;; This file is part of LilyPond, the GNU music typesetter.
+ 
+;; Copyright (C) 1999--2014 Jan Nieuwenhuizen <janneke@gnu.org>
+;; Changed 2014 Peter Schmiedeskamp <peter@thoughtspot.net>
+;;    * Created emacs package (20th Dec 2014)
+;; Changed 2001--2003 Heikki Junes <heikki.junes@hut.fi>
+;;    * Add PS-compilation, PS-viewing and MIDI-play (29th Aug 2001)
+;;    * Keyboard shortcuts (12th Sep 2001)
+;;    * Inserting tags, inspired on sgml-mode (11th Oct 2001)
+;;    * Autocompletion & Info (23rd Nov 2002)
+
+;; LilyPond is free software: you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; LilyPond is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
-;;; Inspired on auctex
+;; Inspired on auctex
 
-;;; Look lilypond-init.el or Documentation/topdocs/INSTALL.texi
-;;; for installing instructions.
+;; Look lilypond-init.el or Documentation/topdocs/INSTALL.texi
+;; for installing instructions.
 
 (require 'easymenu)
 (require 'compile)
 
-(defconst LilyPond-version "2.5.20"
+(defconst LilyPond-version "2.5.21"
   "`LilyPond-mode' version number.")
 
 (defconst LilyPond-help-address "bug-lilypond@gnu.org"
@@ -1076,6 +1081,7 @@ The Insert Tag -menu is split into parts if it is long enough."
     (message "%s" "LilyPond-imenu already exists.")))
 (put 'LilyPond-add-imenu-menu 'menu-enable '(not LilyPond-imenu))
 
+;;;###autoload
 (defun LilyPond-mode ()
   "Major mode for editing LilyPond music files.
 
@@ -1155,6 +1161,9 @@ LilyPond-command-alist\t\talist from name to command"
   ;; Context dependent syntax tables in LilyPond-mode
   (add-hook 'post-command-hook 'LilyPond-mode-context-set-syntax-table nil t)
 
+  ;; Turn on font lock in LilyPond-mode
+  (add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
+
   ;; Turn on paren-mode buffer-locally, i.e., in LilyPond-mode
   (if (string-match "XEmacs\\|Lucid" emacs-version)
       (progn
@@ -1170,6 +1179,11 @@ LilyPond-command-alist\t\talist from name to command"
 
   ;; run the mode hook. LilyPond-mode-hook use is deprecated
   (run-hooks 'LilyPond-mode-hook))
+
+;;;###autoload
+(add-to-list 'auto-mode-alist '("\\.ly$" . LilyPond-mode))
+;;;###autoload
+(add-to-list 'auto-mode-alist '("\\.ily$" . LilyPond-mode))
 
 (defun LilyPond-version ()
   "Echo the current version of `LilyPond-mode' in the minibuffer."
