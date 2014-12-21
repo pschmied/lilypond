@@ -106,16 +106,16 @@ Finds file lilypond-words.el from load-path."
 ;; creates dictionary if empty
 (if (and (eq (length (LilyPond-add-dictionary-word ())) 1)
 	 (not (eq (LilyPond-words-filename) nil)))
-    (progn
-      (setq b (find-file-noselect (LilyPond-words-filename) t t))
-      (setq m (set-marker (make-marker) 1 (get-buffer b)))
-      (setq i 1)
-      (while (> (get-buffer-size b) (marker-position m))
-	(setq i (+ i 1))
-	(setq copy (copy-alist (list (eval (symbol-name (read m))))))
-	(setcdr copy i)
-	(LilyPond-add-dictionary-word (list copy)))
-      (kill-buffer b)))
+    (let* ((b (find-file-noselect (LilyPond-words-filename) t t))
+           (m (set-marker (make-marker) 1 (get-buffer b)))
+           (i 1))
+      (progn
+        (while (> (get-buffer-size b) (marker-position m))
+          (setq i (+ i 1))
+          (setq copy (copy-alist (list (eval (symbol-name (read m))))))
+          (setcdr copy i)
+          (LilyPond-add-dictionary-word (list copy))
+          (kill-buffer b)))))
 
 (defvar LilyPond-insert-tag-current ""
   "The last command selected from the LilyPond-Insert -menu.")
