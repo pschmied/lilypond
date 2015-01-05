@@ -109,13 +109,12 @@ Finds file lilypond-words.el from load-path."
     (let* ((b (find-file-noselect (LilyPond-words-filename) t t))
            (m (set-marker (make-marker) 1 (get-buffer b)))
            (i 1))
-      (progn
         (while (> (get-buffer-size b) (marker-position m))
           (setq i (+ i 1))
           (setq copy (copy-alist (list (eval (symbol-name (read m))))))
           (setcdr copy i)
-          (LilyPond-add-dictionary-word (list copy))
-          (kill-buffer b)))))
+          (LilyPond-add-dictionary-word (list copy)))
+        (kill-buffer b)))
 
 (defvar LilyPond-insert-tag-current ""
   "The last command selected from the LilyPond-Insert -menu.")
@@ -1160,9 +1159,6 @@ LilyPond-command-alist\t\talist from name to command"
 
   ;; Context dependent syntax tables in LilyPond-mode
   (add-hook 'post-command-hook 'LilyPond-mode-context-set-syntax-table nil t)
-
-  ;; Turn on font lock in LilyPond-mode
-  (add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
 
   ;; Turn on paren-mode buffer-locally, i.e., in LilyPond-mode
   (if (string-match "XEmacs\\|Lucid" emacs-version)
